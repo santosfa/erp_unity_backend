@@ -1,0 +1,84 @@
+{
+  "formId": "LEXE1358",
+  "version": "1",
+  "header": {
+    "title": "CATERPILLAR MONTHLY PREVENTIVE MAINTENANCE",
+    "description": "Este checklist descreve as atividades de verificacao mensal para grupos Geradores Caterpillar.",
+    "author": "Testador",
+    "expiration": "2024-12-31T23:59:59.000Z",
+    "active": true,
+    "reasonForChange": "",
+    "subjectToAccessControl": false
+  },
+  "group": [
+    {
+      "groupTitle": "Alerta de Seguranca",
+      "groupDescription": "Atencao para as recomendacoes de Seguranca de Operacao",
+      "components": [
+        {
+          "type": "description",
+          "icon": "warning",
+          "description":"O interruptor manual-automático no painel de partida deve ser posicionado na posição [parar] ao realizar manutenção ou reparos em um conjunto gerador de reserva. Isso impede que a unidade seja iniciada caso ocorra uma falha de energia ou queda de voltagem durante o trabalho na unidade./n Para evitar ferimentos pessoais devido à partida acidental do motor, desconecte as baterias ou desative o sistema de partida antes de realizar trabalhos de manutenção ou reparos./n Bloqueie todos os equipamentos de comutação e interruptores de transferência automáticos associados ao gerador ao realizar qualquer manutenção ou reparo no gerador. Certifique-se de que não há risco de choque elétrico./n O não cumprimento dessas orientações pode resultar em ferimentos pessoais ou morte.",
+          "required": true,
+          "placeholder": "WARNING"          
+        }
+      ]
+    },
+    {
+      "groupTitle": "Local de Instalacao",
+      "groupDescription": "Informacoes do Local de instalacao e ordem de servico",
+      "components": [
+        {
+          "type": "text input",
+          "icon": "text",
+          "required": true,
+          "placeholder": "Work Order",
+          "description": "Numero da Ordem de Servico.",
+          "inputType":"number"      
+        },
+        {
+          "type": "text input",
+          "icon": "text",
+          "required": true,
+          "placeholder": "Customer Name",
+          "description": "Entre com o nome do cliente.",
+          "inputType":"text",
+          "minLength": 2,
+          "maxLength": 20          
+        },
+        {
+          "type": "text input",
+          "icon": "text",
+          "required": true,
+          "placeholder": "serial number",
+          "description": "Entre com o numero de serie do equipamento.",
+          "inputType":"number"      
+        },
+        {
+          "type": "date",
+          "icon": "text",
+          "required": true,
+          "placeholder": "Data da inspecao",
+          "description": "Data e hora de inspecao do equipamento.",
+          "defaultTimestamp":true
+        },
+        {
+          "type": "checkboxes",
+          "icon": "check",
+          "options": [
+            {"value": "DE75E3S", "label": "7.5 kVA - DE75E3S"},
+            {"value": "DE11E3S", "label": "11 kVA - DE11E3S"},
+            {"value": "DE12EOS", "label": "12 kVA - DE12EOS"},
+            {"value": "DE14E3S", "label": "14 kVA - DE14E3S"},
+            {"value": "DE16E3S", "label": "16 kVA - DE16E3S"},
+            {"value": "DE26E3S", "label": "26 kVA - DE26E3S"}
+          ],
+          "required": false,
+          "multiSelection":false,
+          "placeholder": "Model",
+          "description": "Selecione o modelo."
+        }
+      ]
+    }
+  ]
+}
