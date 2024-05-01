@@ -141,7 +141,6 @@ class BaseController {
           : `^${value}$`;
         query[field] = new RegExp(regexValue, "i");
       }
-
       try {
         const data = await model.listByField(query);
         const totalItemCount =
@@ -161,7 +160,6 @@ class BaseController {
             statusCode: 400
           };
         }
-
         throw error;
       }
     });
