@@ -19,13 +19,13 @@ server.use(bodyParser.json());
 
 
 //----------------------------------Rotas----------------------------------------
-server.use('/api/health',require('./routes/healthRoutes'));
-server.use('/api/auth',require('./routes/auth/authRoutes'));
-server.use('/api/user',require('./routes/user/userRoutes'));
-server.use('/api/customer',authMiddleware,require('./routes/customer/customerRoutes'));
-server.use('/api/contract',require('./routes/contract/contractRoutes'));
-server.use('/api/location',require('./routes/location/locationRoutes'));
-server.use('/api/form',require('./routes/form/formRoutes'));
+server.use('/health',require('./routes/healthRoutes'));
+server.use('/auth',require('./routes/auth/authRoutes'));
+server.use('/user',require('./routes/user/userRoutes'));
+server.use('/customer',authMiddleware,require('./routes/customer/customerRoutes'));
+server.use('/contract',require('./routes/contract/contractRoutes'));
+server.use('/location',require('./routes/location/locationRoutes'));
+server.use('/form',require('./routes/form/formRoutes'));
 
 
 // Middleware para lidar com rotas não encontradas
