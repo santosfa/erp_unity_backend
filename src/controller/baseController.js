@@ -51,6 +51,7 @@ class BaseController {
       message: "success",
       statusCode: 200
     });
+    
   }
 
   // Envia uma resposta de não encontrado para o cliente.

@@ -12,6 +12,7 @@ router.use(userMiddleware);
 
 router.get('/all', async (req, res) => {
     await baseController.listAll(req, res, 'customer');
+    res.end(); // ou res.close(); 
 });
 
 router.get('/search/:field/:value', async (req, res) => {
