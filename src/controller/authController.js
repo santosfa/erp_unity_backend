@@ -52,36 +52,25 @@ class authController {
     };
 
     async validateToken(req, res) {
-        const authHeader = req.headers.authorization;
+        const { token } = req.body;
 
-        if (!authHeader) {
-            return res.status(401).json(
-                msg.resp(null, "No token provided.", 401)
-            );
+        if (!token) {
+            return res.status(401).json({ message: "No token provided." });
         }
-
-        const parts = authHeader.split(' ');
-
-        if (parts.length !== 2 || !/^Bearer$/i.test(parts[0])) {
-            return res.status(401).json(
-                msg.resp(null, "Token error.", 401)
-            );
-        }
-
-        const token = parts[1];
-
+    
         jwt.verify(token, authConfig.secret, (err, decoded) => {
             if (err) {
-                return res.status(401).json(
-                    msg.resp(null, "Invalid token.", 401)
-                );
+                return res.status(401).json({ message: "Invalid token." });
             }
-
+    
             // O token é válido
-            req.userId = decoded.id; // Adicione o ID do usuário decodificado ao objeto de requisição para uso posterior
-            return res.status(200).json(
-                msg.resp(decoded, "Token is valid.", 200)
-            );
+            const responseBody = {
+                message: "Token is valid.",
+                payload: decoded, // Adicione os dados decodificados ao corpo da resposta
+                token: token // Se desejar, pode incluir o token no corpo da resposta também
+            };
+    
+            return res.status(200).json(responseBody);
         });
     }
 }
