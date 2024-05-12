@@ -50,6 +50,40 @@ class authController {
             );
         }
     };
+
+    async validateToken(req, res) {
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader) {
+            return res.status(401).json(
+                msg.resp(null, "No token provided.", 401)
+            );
+        }
+
+        const parts = authHeader.split(' ');
+
+        if (parts.length !== 2 || !/^Bearer$/i.test(parts[0])) {
+            return res.status(401).json(
+                msg.resp(null, "Token error.", 401)
+            );
+        }
+
+        const token = parts[1];
+
+        jwt.verify(token, authConfig.secret, (err, decoded) => {
+            if (err) {
+                return res.status(401).json(
+                    msg.resp(null, "Invalid token.", 401)
+                );
+            }
+
+            // O token é válido
+            req.userId = decoded.id; // Adicione o ID do usuário decodificado ao objeto de requisição para uso posterior
+            return res.status(200).json(
+                msg.resp(decoded, "Token is valid.", 200)
+            );
+        });
+    }
 }
 
 module.exports = authController;
