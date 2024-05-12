@@ -12,6 +12,10 @@ router.post('/authenticate', async (req, res) => {
     await auth.authenticate(req, res);
 });
 
+router.post('/validateToken', async (req, res) => {
+    await auth.validateToken(req, res);
+});
+
 module.exports = router;
 
 
