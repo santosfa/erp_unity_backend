@@ -58,19 +58,29 @@ class authController {
             return res.status(401).json({ message: "No token provided." });
         }
     
-        jwt.verify(token, authConfig.secret, (err, decoded) => {
+        jwt.verify(token, authConfig.secret, async (err, decoded) => {
             if (err) {
                 return res.status(401).json({ message: "Invalid token." });
             }
     
-            // O token é válido
-            const responseBody = {
-                message: "Token is valid.",
-                payload: decoded, // Adicione os dados decodificados ao corpo da resposta
-                token: token // Se desejar, pode incluir o token no corpo da resposta também
-            };
+            try {
+                // O token é válido
+                const user = await User.findById(decoded.id).select('-password');
+                if (!user) {
+                    return res.status(404).json({ message: "User not found." });
+                }
     
-            return res.status(200).json(responseBody);
+                const responseBody = {
+                    message: "Token is valid.",
+                    user: user, // Inclua os dados do usuário no corpo da resposta
+                    token: token // Inclua o token no corpo da resposta também, se desejar
+                };
+    
+                return res.status(200).json(responseBody);
+            } catch (error) {
+                console.error("Error validating token:", error);
+                return res.status(500).json({ message: "Internal server error." });
+            }
         });
     }
 }
