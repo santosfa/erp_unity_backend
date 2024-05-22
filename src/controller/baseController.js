@@ -1,7 +1,3 @@
-/*
-File BaseController,js
-*/
-
 const path = require("path");
 const { MongoServerError } = require("mongodb");
 const GenericModelService = require("../service/genericModelService");
@@ -26,10 +22,16 @@ class BaseController {
           ? result.data
           : [result.data];
         const totalItemCount = responseData.length;
+
+        // Inclua totalPages e currentPage na resposta se estiverem disponíveis
+        const { totalPages, currentPage } = result;
+
         if (responseData.length > 0) {
           return this.sendSuccessResponse(res, {
             data: responseData,
-            totalItemCount
+            totalItemCount,
+            totalPages,
+            currentPage
           });
         }
       }
@@ -51,7 +53,6 @@ class BaseController {
       message: "success",
       statusCode: 200
     });
-    
   }
 
   // Envia uma resposta de não encontrado para o cliente.
@@ -92,9 +93,6 @@ class BaseController {
   // Parâmetros de entrada: req (objeto de solicitação), res (objeto de resposta), modelName (nome do modelo).
   // Retorna uma lista de documentos do modelo com informações de paginação.
   async listAll(req, res, modelName) {
-
-    console.log(req.userId);
-    
     const { page, limit } = req.query;
     const pageNumber = Math.max(parseInt(page) || 1, 1);
     const itemsPerPage = Math.max(parseInt(limit) || 10, 1);
@@ -130,7 +128,6 @@ class BaseController {
   // Parâmetros de entrada: req (objeto de solicitação), res (objeto de resposta), modelName (nome do modelo), field (campo para filtrar), value (valor para comparar).
   // Retorna uma lista de documentos do modelo que correspondem ao campo e valor fornecidos.
   async listByField(req, res, modelName, field, value) {
-
     return this.executeOperation(req, res, modelName, async model => {
       let query = {};
 
@@ -166,13 +163,10 @@ class BaseController {
     });
   }
 
-
-
   // Cria um novo documento no modelo com base nos dados fornecidos.
   // Parâmetros de entrada: req (objeto de solicitação), res (objeto de resposta), modelName (nome do modelo).
   // Retorna o novo documento criado.
   async create(req, res, modelName) {
-   
     return this.executeOperation(req, res, modelName, async model => {
       const modelData = req.body;
       const data = await model.create(modelData);
@@ -209,11 +203,6 @@ class BaseController {
       return { deletedModel };
     });
   }
-
-
-
-
-
 }
 
 module.exports = BaseController;
