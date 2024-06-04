@@ -173,7 +173,6 @@ class BaseController {
       return { data };
     });
   }
-
   // Atualiza um documento no modelo com base no ID fornecido e nos dados atualizados.
   // Parâmetros de entrada: req (objeto de solicitação), res (objeto de resposta), modelName (nome do modelo).
   // Retorna o documento atualizado.
@@ -189,7 +188,6 @@ class BaseController {
       return { updatedModel };
     });
   }
-
   // Exclui um documento no modelo com base no ID fornecido.
   // Parâmetros de entrada: req (objeto de solicitação), res (objeto de resposta), modelName (nome do modelo).
   // Retorna o documento excluído.
@@ -204,5 +202,4 @@ class BaseController {
     });
   }
 }
-
 module.exports = BaseController;
